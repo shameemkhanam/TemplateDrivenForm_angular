@@ -1,17 +1,38 @@
 <div class="form">
   <h2 id="registration">Registration Form</h2>
   <form (ngSubmit)="onSubmit()" #myform="ngForm">
-    <label for="fname">First Name</label>
-    <input type="text" id="fname" placeholder="Your name.." name="firstname" ngModel>
+    <!--form control group--- v r grouping fname,lname & email-->
+    <div ngModelGroup="personalDetails" #personalDetails="ngModelGroup">
+      <label for="fname">First Name</label>
+      <!-- <input type="text" id="fname" placeholder="Your name.." name="firstname" [(ngModel)]="firstname" required #fname="ngModel"> -->
+      <input type="text" id="fname" placeholder="Your name.." name="firstname" ngModel required #fname="ngModel">
+      <!-- <div style="margin-bottom: 10px;">
+        <small *ngIf="fname.invalid && fname.touched">Firstname is a required field.</small>
+        <span *ngIf="firstname">You entered: {{firstname}}</span>
+      </div> -->
+      <label for="lname">Last Name</label>
+      <!-- <input type="text" id="lname" placeholder="Your last name.." name="lastname" [(ngModel)]="lastname" required #lname="ngModel"> -->
+      <input type="text" id="lname" placeholder="Your last name.." name="lastname" ngModel required #lname="ngModel">
+      <!-- <div style="margin-bottom: 10px;">
+        <small *ngIf="lname.invalid && lname.touched">Lastname is a required field.</small>
+        <span *ngIf="lastname">You entered: {{lastname}}</span>
+      </div> -->
+      <label for="email">Email</label>
+      <input type="text" id="email" placeholder="Your email.." name="email" ngModel required email #email="ngModel">
+      <!-- <div style="margin-bottom: 10px;">
+        <small *ngIf="email.invalid && email.touched">email is a required field.</small>
+      </div> -->
 
-    <label for="lname">Last Name</label>
-    <input type="text" id="lname" placeholder="Your last name.." name="lastname" ngModel>
+      <div style="margin-bottom: 10px;">
+        <small *ngIf="personalDetails.invalid && personalDetails.touched">Some of the required fields doesn't have valid value.</small>
+      </div>
 
-    <label for="email">Email</label>
-    <input type="text" id="email" placeholder="Your email.." name="email" ngModel>
+      <button (click)="setDefaultValues()">Set default values</button>
+    </div>
+    
 
     <label for="country">Country</label>
-    <select id="country" name="country" ngModel>
+    <select id="country" name="country" [ngModel]="defaultCountry">
       <option value="australia">Australia</option>
       <option value="canada">Canada</option>
       <option value="usa">USA</option>
@@ -20,22 +41,38 @@
     </select>
 
     <label for="gender">Gender : </label>
+    <span *ngFor="let gen of gender">
+      <input type="radio" id="{{gen.id}}" value="{{gen.value}}" name="gender" [ngModel]="defaultGender">
+      <label for="{{gen.value}}">{{gen.value}}</label>
+    </span>
+
+
+    <!-- 
     <input type="radio" id="male" value="male" name="gender" ngModel>
     <label for="male">Male</label>
     <input type="radio" id="female" value="female" name="gender" ngModel>
     <label for="female">Female</label>
     <input type="radio" id="other" value="other" name="gender" ngModel>
-    <label for="other">Other</label>
+    <label for="other">Other</label> -->
 
     <br><br>
-
+    
     <label>Hobbies<i>(optional)</i></label>
     <div class="form_inline">
       <label><input type="checkbox" value="sports" name="hobbies" ngModel>Sports</label>
       <label><input type="checkbox" value="movies" name="hobbies" ngModel>Movies</label>
       <label><input type="checkbox" value="music" name="hobbies" ngModel>Music</label>
     </div>
-
+    <!-- <input type="submit" value="Submit" id="btn" [disabled]="!myform.valid"> -->
     <input type="submit" value="Submit" id="btn">
   </form>
+</div>
+
+<div class="form_data">
+  <h3>Form Data</h3>
+  <p>First Name: <b>{{fname}}</b></p>
+  <p>Last Name: <b>{{lname}}</b></p>
+  <p>Email: <b>{{email}}</b></p>
+  <p>Country: <b>{{country}}</b></p>
+  <p>Gender: <b>{{gen}}</b></p>
 </div>

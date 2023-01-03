@@ -30,3 +30,18 @@ input[type=submit]:hover{
   width: 400px;
   margin: 30px auto;
 }
+.form_data{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  width: 400px;
+  margin: 30px auto;
+}
+
+input.ng-invalid.ng-touched{
+  border: 2px solid red;
+}
+
+small{
+  color: red;  
+}
